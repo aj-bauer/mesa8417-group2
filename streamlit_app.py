@@ -18,9 +18,12 @@ st.set_page_config(
 @st.cache_data
 def get_ipeds_data():
 
-    """Grab cleaned IPEDS data from a CSV file,
+    """Grab cleaned IPEDS and Geo data from a CSV file,
     and perform any necessary data manipulation.
     """
+
+    DATA_FILENAME_GEO  = Path(__file__).parent/'data/states_geo.csv'
+    geo_df = pd.read_csv(DATA_FILENAME_GEO)
 
     # Instead of a CSV on disk, you could read from an HTTP endpoint here too.
     DATA_FILENAME = Path(__file__).parent/'data/IPEDS_DATA_CLEAN.csv'
@@ -34,14 +37,15 @@ def get_ipeds_data():
               "Percent_federal_loans"]
     for col in p_cols:
         ipeds_df[f"{col}_p"] = ipeds_df[col] / 100
+
     # Calculate percent of students NOT getting finaid
     ipeds_df["Percent_no_aid"] = 1 - ipeds_df["Percent_financial_aid_p"]
 
     # Perform any other new column calculations, cleaning, etc. HERE
 
-    return ipeds_df
+    return ipeds_df, geo_df
 
-ipeds_df = get_ipeds_data()
+ipeds_df, geo_df = get_ipeds_data()
 
 # -----------------------------------------------------------------------------
 
@@ -135,7 +139,7 @@ with col2:
 
 with col3:
     '''
-    ## Average Financial Aid (Grants and/or Loans)
+    ## How many students receive financial aid?
     '''
 
     # Dropdown filter
