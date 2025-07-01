@@ -5,6 +5,7 @@ from pathlib import Path
 
 # Set top-level config here, such as page title & icon
 st.set_page_config(
+    layout="wide",
     page_title='IPEDS Exploration (MESA8417 Group 2)',
     page_icon=':school:', # This is an emoji shortcode. Could be a URL too.
 )
@@ -37,7 +38,7 @@ ipeds_df = get_ipeds_data()
 # Set the title and text that appears at the top of the page.
 '''
 # :school: IPEDS Exploration
-MESA8417 Group 2 (Avi Bauer, Zhenyu Fan, and Margeau Jong)
+(Subtitle goes here.)
 '''
 
 # Add some spacing
@@ -57,20 +58,31 @@ with st.sidebar: # https://docs.streamlit.io/develop/api-reference/layout/st.sid
     # Background information
     st.subheader('Background')
     
-    with st.expander('What is IPEDS?'): # https://docs.streamlit.io/develop/api-reference/layout/st.expander
+    with st.expander('Who are we?'): # https://docs.streamlit.io/develop/api-reference/layout/st.expander
+        '''
+        We are Group 2 from MESA8417, Summer 2025: 
+        * Avi Bauer 
+        * Zhenyu Fan
+        * Margeau Jong
+        '''
+    
+    with st.expander('Who are you?'):
+        '''
+        [[UPDATE]] Here we can explain our proposed use case.
+        '''
+
+    with st.expander('What is IPEDS?'):
         '''
         The Integrated Postsecondary Education Data System (IPEDS), 
         curated by the National Center for Education Statistics (NCES), 
         contains a wide range of data from colleges, universities, 
         and other institutions of higher education that participate 
         in federal financial aid programs.
+
+        Check out the [NCES website](https://nces.ed.gov/ipeds/) 
+        for more information.
         '''
 
-    with st.expander('Learn more about IPEDS'):
-        '''
-        Check out the [NCES website](https://nces.ed.gov/ipeds/) 
-        for more information on the IPEDS dataset.
-        '''
 # ------ END SIDEBAR ------
 
 
@@ -81,14 +93,37 @@ ipeds_filtered = ipeds_df if sector == "All schools" else ipeds_df[ipeds_df["Con
 # ------ MAP SECTION ------ 
 st.header(f"Where are {'Public and Private not-for-profit' if sector=='All schools' else sector} Schools of Higher Ed in the USA?")
 
-# [[Map goes here]]
+'''
+Map goes here.
+'''
 
 # ------ END MAP SECTION ------
 
+# Add some spacing
+''
+''
+
 # Filter data again
+
 
 # ------ COLUMNS ------
 
 col1, col2, col3 = st.columns(spec=3, gap="small") # https://docs.streamlit.io/develop/api-reference/layout/st.columns
+
+# First column
+with col1:
+    '''
+    ## Sector Pie Chart?
+    '''
+
+with col2:
+    '''
+    ## Grad Rate Histogram
+    '''
+
+with col3:
+    '''
+    ## Bar Graph (Aid, Pell, Loans)
+    '''
 
 # ------ END COLUMNS ------
