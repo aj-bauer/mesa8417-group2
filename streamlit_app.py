@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import math
 from pathlib import Path
+import altair as alt
 
 # Set top-level config here, such as page title & icon
 st.set_page_config(
@@ -25,7 +26,18 @@ def get_ipeds_data():
     DATA_FILENAME = Path(__file__).parent/'data/IPEDS_DATA_CLEAN.csv'
     ipeds_df = pd.read_csv(DATA_FILENAME)
 
-    # Perform any new column calculations, cleaning, etc. HERE
+    # Recalc percent columns as percents
+    p_cols = ["Percent_financial_aid",
+              "Percent_Pell_grants",
+              "Percent_grant_aid",
+              "Percent_student_loans",
+              "Percent_federal_loans"]
+    for col in p_cols:
+        ipeds_df[f"{col}_p"] = ipeds_df[col] / 100
+    # Calculate percent of students NOT getting finaid
+    ipeds_df["Percent_no_aid"] = 1 - ipeds_df["Percent_financial_aid_p"]
+
+    # Perform any other new column calculations, cleaning, etc. HERE
 
     return ipeds_df
 
@@ -123,7 +135,56 @@ with col2:
 
 with col3:
     '''
-    ## Bar Graph (Aid, Pell, Loans)
+    ## Average Financial Aid (Grants and/or Loans)
     '''
 
+    # Dropdown filter
+    bar_dimension = st.selectbox(label="Aid type:",
+                                 options=["Total Aid",  
+                                          "Grant Aid", 
+                                          "Student Loans"])
+    
+    # IF "Total Aid", make a pie chart
+    if bar_dimension == "Total Aid":
+
+        # Melt the data appropriately 
+        third_pie_long = ipeds_filtered.melt(id_vars=["unitid"], 
+                                  value_vars=["Percent_financial_aid_p", "Percent_no_aid"],
+                                  var_name="Got_aid", 
+                                  value_name="Percent")
+
+        # Make a pie chart of receiving aid vs. not
+        third_chart = alt.Chart(third_pie_long).mark_arc(innerRadius=10).encode(
+            theta="mean(Percent)",
+            color="Got_aid"
+        )
+
+    # Otherwise, make a bar chart
+    else:
+        if bar_dimension == "Grant Aid":
+            bar_dim = ["Percent_grant_aid_p", "Percent_Pell_grants_p"]
+        elif bar_dimension == "Student Loans":
+            bar_dim = ["Percent_student_loans_p", "Percent_federal_loans_p"]
+
+    
+        # Select and melt data
+        third_bars_long = ipeds_filtered.melt(id_vars=["unitid"], 
+                                  value_vars=bar_dim,
+                                  var_name="Cost_Type", 
+                                  value_name="Avg_amount")
+
+        # Make a bar chart!
+        third_chart = alt.Chart(third_bars_long).mark_bar().encode(
+            x=alt.X("Cost_Type"),
+            y=alt.Y("mean(Avg_amount)", title="Fraction receiving Aid").scale(domain=(0, 1)),
+            tooltip=alt.Tooltip(aggregate="mean",
+                                field="Avg_amount",
+                                format=".0%",
+                                formatType="number",
+                                title="Receiving Aid:",
+                                )
+        )
+    
+    st.altair_chart(third_chart)
+        
 # ------ END COLUMNS ------
