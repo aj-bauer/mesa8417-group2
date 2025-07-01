@@ -113,6 +113,9 @@ st.header(f"Where are {'Public and Private not-for-profit' if sector=='All schoo
 Map goes here.
 '''
 
+
+
+
 # ------ END MAP SECTION ------
 
 # Add some spacing
@@ -144,12 +147,12 @@ with col3:
 
     # Dropdown filter
     bar_dimension = st.selectbox(label="Aid type:",
-                                 options=["Total Aid",  
+                                 options=["Any Aid",  
                                           "Grant Aid", 
                                           "Student Loans"])
     
     # IF "Total Aid", make a pie chart
-    if bar_dimension == "Total Aid":
+    if bar_dimension == "Any Aid":
 
         # Melt the data appropriately 
         third_pie_long = ipeds_filtered.melt(id_vars=["unitid"], 
