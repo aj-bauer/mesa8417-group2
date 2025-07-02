@@ -121,7 +121,7 @@ states = alt.topo_feature('https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/da
 # Generate map
 chloropleth = alt.Chart(states).mark_geoshape(tooltip=True).transform_lookup(
     lookup='id',
-    from_=alt.LookupData(source, 'id', ["unitid", "state"])
+    from_=alt.LookupData(ipeds_state_count, 'id', ["unitid", "state"])
 ).encode(
     color=alt.Color("unitid:Q"),
     opacity=opacity,
