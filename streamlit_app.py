@@ -3,6 +3,8 @@ import pandas as pd
 import math
 from pathlib import Path
 import altair as alt
+from vega_datasets import data
+import geopandas as gpd
 
 # Set top-level config here, such as page title & icon
 st.set_page_config(
@@ -18,12 +20,9 @@ st.set_page_config(
 @st.cache_data
 def get_ipeds_data():
 
-    """Grab cleaned IPEDS and Geo data from a CSV file,
+    """Grab cleaned IPEDS data from a CSV file,
     and perform any necessary data manipulation.
     """
-
-    DATA_FILENAME_GEO  = Path(__file__).parent/'data/states_geo.csv'
-    geo_df = pd.read_csv(DATA_FILENAME_GEO)
 
     # Instead of a CSV on disk, you could read from an HTTP endpoint here too.
     DATA_FILENAME = Path(__file__).parent/'data/IPEDS_DATA_CLEAN.csv'
@@ -43,9 +42,9 @@ def get_ipeds_data():
 
     # Perform any other new column calculations, cleaning, etc. HERE
 
-    return ipeds_df, geo_df
+    return ipeds_df
 
-ipeds_df, geo_df = get_ipeds_data()
+ipeds_df = get_ipeds_data()
 
 # -----------------------------------------------------------------------------
 
@@ -113,8 +112,30 @@ st.header(f"Where are {'Public and Private not-for-profit' if sector=='All schoo
 Map goes here.
 '''
 
-
-
+# First, aggregate the schools per state
+ipeds_state_count = ipeds_filtered.groupby(["state", "id"]).count()["unitid"].reset_index()
+# Define a pointer selection
+click_state = alt.selection_point(fields=["id"])
+# Define a condition on the opacity encoding depending on the selection
+opacity = alt.when(click_state).then(alt.value(1)).otherwise(alt.value(0.2))
+# Define state data source
+states = alt.topo_feature(data.us_10m.url, 'states')
+# Generate map
+chloropleth = alt.Chart(states).mark_geoshape(tooltip=True).transform_lookup(
+    lookup='id',
+    from_=alt.LookupData(source, 'id', ["unitid", "state"])
+).encode(
+    color=alt.Color("unitid:Q"),
+    opacity=opacity,
+    tooltip=[alt.Tooltip(field="state", title="State:"),
+             alt.Tooltip(field="unitid", title="Count:")]
+).project(
+    type='albersUsa'
+).add_params(
+    click_state
+)
+# Run map, return selected state value
+state_map = st.altair_chart(chloropleth, on_select="rerun")
 
 # ------ END MAP SECTION ------
 
@@ -123,7 +144,7 @@ Map goes here.
 ''
 
 # Filter data again
-
+ipeds_refiltered = ipeds_filtered if not state_map else ipeds_filtered[ipeds_filtered["id"] == state_map] 
 
 # ------ COLUMNS ------
 
@@ -155,7 +176,7 @@ with col3:
     if bar_dimension == "Any Aid":
 
         # Melt the data appropriately 
-        third_pie_long = ipeds_filtered.melt(id_vars=["unitid"], 
+        third_pie_long = ipeds_refiltered.melt(id_vars=["unitid"], 
                                   value_vars=["Percent_financial_aid_p", "Percent_no_aid"],
                                   var_name="Got_aid", 
                                   value_name="Percent")
@@ -175,7 +196,7 @@ with col3:
 
     
         # Select and melt data
-        third_bars_long = ipeds_filtered.melt(id_vars=["unitid"], 
+        third_bars_long = ipeds_refiltered.melt(id_vars=["unitid"], 
                                   value_vars=bar_dim,
                                   var_name="Cost_Type", 
                                   value_name="Avg_amount")
