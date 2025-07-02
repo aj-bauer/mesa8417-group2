@@ -139,7 +139,7 @@ state_map = st.altair_chart(chloropleth, on_select="rerun")
 st.markdown(f"{state_map}")
 
 # Filter data again
-ipeds_refiltered = ipeds_filtered if not state_map["state"] else ipeds_filtered[ipeds_filtered["id"] == state_map["state"]["id"]]
+ipeds_refiltered = ipeds_filtered if len(state_map["selection"]["state"]) == 0 else ipeds_filtered[ipeds_filtered["id"] == state_map["selection"]["state"]["id"]]
 
 # ------ END MAP SECTION ------
 
