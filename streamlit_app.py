@@ -3,7 +3,7 @@ import pandas as pd
 import math
 from pathlib import Path
 import altair as alt
-from vega_datasets import data
+# from vega_datasets import data
 import geopandas as gpd
 
 # Set top-level config here, such as page title & icon
@@ -119,7 +119,7 @@ click_state = alt.selection_point(fields=["id"])
 # Define a condition on the opacity encoding depending on the selection
 opacity = alt.when(click_state).then(alt.value(1)).otherwise(alt.value(0.2))
 # Define state data source
-states = alt.topo_feature(data.us_10m.url, 'states')
+states = alt.topo_feature('https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/data/us-10m.json', 'states')
 # Generate map
 chloropleth = alt.Chart(states).mark_geoshape(tooltip=True).transform_lookup(
     lookup='id',
