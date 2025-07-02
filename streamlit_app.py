@@ -3,7 +3,6 @@ import pandas as pd
 import math
 from pathlib import Path
 import altair as alt
-# from vega_datasets import data
 import geopandas as gpd
 
 # Set top-level config here, such as page title & icon
