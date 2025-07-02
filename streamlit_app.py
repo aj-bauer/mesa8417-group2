@@ -113,7 +113,7 @@ Map goes here.
 # First, aggregate the schools per state
 ipeds_state_count = ipeds_filtered.groupby(["state", "id"]).count()["unitid"].reset_index()
 # Define a pointer selection
-click_state = alt.selection_point(fields=["id"])
+click_state = alt.selection_point(name="state", fields=["id"])
 # Define a condition on the opacity encoding depending on the selection
 opacity = alt.when(click_state).then(alt.value(1)).otherwise(alt.value(0.2))
 # Define state data source
@@ -139,7 +139,7 @@ state_map = st.altair_chart(chloropleth, on_select="rerun")
 st.markdown(f"{state_map}")
 
 # Filter data again
-ipeds_refiltered = ipeds_filtered if not state_map else ipeds_filtered[ipeds_filtered["id"] == state_map]
+ipeds_refiltered = ipeds_filtered if not state_map["state"] else ipeds_filtered[ipeds_filtered["id"] == state_map["state"]["id"]]
 
 # ------ END MAP SECTION ------
 
