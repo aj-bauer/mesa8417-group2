@@ -115,10 +115,13 @@ state_metric = st.radio(
     captions=[f"{'Public and Private not-for-profit' if sector=='All schools' else sector} schools",
               "Average 6-year graduation rate"]
 )
+# Assign values based on radio choice
 if state_metric == "Number of Schools per State":
     state_metric_chosen = "unitid"
+    state_metric_name = "Num. of Schools"
 elif state_metric == "State Overall Graduation Rate":
     state_metric_chosen = "Graduation_rate_Bachelor_6_years_total"
+    state_metric_name = "Avg. Grad Rate"
 
 # Aggregate the schools per state and overall grad rate
 ipeds_state_metric = ipeds_filtered.groupby(["state", "id"]).agg({"unitid":"count", "Graduation_rate_Bachelor_6_years_total":"mean"}).reset_index()
@@ -132,13 +135,13 @@ states = alt.topo_feature('https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/da
 # Generate map
 chloropleth = alt.Chart(states).mark_geoshape(tooltip=True).transform_lookup(
     lookup='id',
-    from_=alt.LookupData(ipeds_state_metric, 'id', [state_metric_chosen, "state"])
+    from_=alt.LookupData(ipeds_state_metric, 'id', ["unitid", "Graduation_rate_Bachelor_6_years_total", "state"])
 ).encode(
-    color=alt.Color(f"{state_metric_chosen}:Q"),
+    color=alt.Color(f"{state_metric_chosen}:Q", title=state_metric_name),
     opacity=opacity,
     tooltip=[alt.Tooltip(field="state", title="State:"),
-             alt.Tooltip(field="unitid", title="Num. Schools:"),
-             alt.Tooltip(field="Graduation_rate_Bachelor_6_years_total", title="Avg. Grad Rate:")]
+             alt.Tooltip(field="unitid", title="Num. of Schools:"),
+             alt.Tooltip(field="Graduation_rate_Bachelor_6_years_total", format=".2f", formatType="number", title="Avg. Grad Rate:")]
 ).project(
     type='albersUsa'
 ).add_params(
