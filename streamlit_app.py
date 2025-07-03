@@ -106,12 +106,23 @@ ipeds_filtered = ipeds_df if sector == "All schools" else ipeds_df[ipeds_df["Con
 # ------ MAP SECTION ------ 
 st.header(f"Where are {'Public and Private not-for-profit' if sector=='All schools' else sector} Schools of Higher Ed in the USA?")
 
-'''
-Map goes here.
-'''
+# Include a selector for colormap metric
+state_metric = st.radio(
+    label="Select metric for colormap:",
+    options=["Number of Schools per State",
+             "State Overall Graduation Rate"],
+    horizontal=True,
+    captions=[f"{'Public and Private not-for-profit' if sector=='All schools' else sector} schools",
+              "Average 6-year graduation rate"]
+)
+if state_metric == "Number of Schools per State":
+    state_metric_chosen = "unitid"
+elif state_metric == "State Overall Graduation Rate":
+    state_metric_chosen = "Graduation_rate_Bachelor_6_years_total"
 
-# First, aggregate the schools per state
-ipeds_state_count = ipeds_filtered.groupby(["state", "id"]).count()["unitid"].reset_index()
+# Aggregate the schools per state and overall grad rate
+ipeds_state_metric = ipeds_filtered.groupby(["state", "id"]).agg({"unitid":"count", "Graduation_rate_Bachelor_6_years_total":"mean"}).reset_index()
+
 # Define a pointer selection
 click_state = alt.selection_point(name="state", fields=["id"])
 # Define a condition on the opacity encoding depending on the selection
@@ -121,12 +132,13 @@ states = alt.topo_feature('https://cdn.jsdelivr.net/npm/vega-datasets@v1.29.0/da
 # Generate map
 chloropleth = alt.Chart(states).mark_geoshape(tooltip=True).transform_lookup(
     lookup='id',
-    from_=alt.LookupData(ipeds_state_count, 'id', ["unitid", "state"])
+    from_=alt.LookupData(ipeds_state_metric, 'id', [state_metric_chosen, "state"])
 ).encode(
-    color=alt.Color("unitid:Q"),
+    color=alt.Color(state_metric_chosen),
     opacity=opacity,
     tooltip=[alt.Tooltip(field="state", title="State:"),
-             alt.Tooltip(field="unitid", title="Count:")]
+             alt.Tooltip(field="unitid", title="Num. Schools:"),
+             alt.Tooltip(field="Graduation_rate_Bachelor_6_years_total", title="Avg. Grad Rate:")]
 ).project(
     type='albersUsa'
 ).add_params(
