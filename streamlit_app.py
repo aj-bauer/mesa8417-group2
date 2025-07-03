@@ -134,7 +134,7 @@ chloropleth = alt.Chart(states).mark_geoshape(tooltip=True).transform_lookup(
     lookup='id',
     from_=alt.LookupData(ipeds_state_metric, 'id', [state_metric_chosen, "state"])
 ).encode(
-    color=alt.Color(state_metric_chosen),
+    color=alt.Color(f"{state_metric_chosen}:Q"),
     opacity=opacity,
     tooltip=[alt.Tooltip(field="state", title="State:"),
              alt.Tooltip(field="unitid", title="Num. Schools:"),
