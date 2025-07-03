@@ -113,7 +113,7 @@ state_metric = st.radio(
              "State Overall Graduation Rate"],
     horizontal=True,
     captions=[f"{'Public and Private not-for-profit' if sector=='All schools' else sector} schools",
-              "Average 6-year graduation rate"]
+              "Average 6-year graduation rate (%)"]
 )
 # Assign values based on radio choice
 if state_metric == "Number of Schools per State":
@@ -121,7 +121,7 @@ if state_metric == "Number of Schools per State":
     state_metric_name = "Num. of Schools"
 elif state_metric == "State Overall Graduation Rate":
     state_metric_chosen = "Graduation_rate_Bachelor_6_years_total"
-    state_metric_name = "Avg. Grad Rate"
+    state_metric_name = "Avg. Grad Rate (%)"
 
 # Aggregate the schools per state and overall grad rate
 ipeds_state_metric = ipeds_filtered.groupby(["state", "id"]).agg({"unitid":"count", "Graduation_rate_Bachelor_6_years_total":"mean"}).reset_index()
@@ -141,7 +141,7 @@ chloropleth = alt.Chart(states).mark_geoshape(tooltip=True).transform_lookup(
     opacity=opacity,
     tooltip=[alt.Tooltip(field="state", title="State:"),
              alt.Tooltip(field="unitid", title="Num. of Schools:"),
-             alt.Tooltip(field="Graduation_rate_Bachelor_6_years_total", format=".2f", formatType="number", title="Avg. Grad Rate:")]
+             alt.Tooltip(field="Graduation_rate_Bachelor_6_years_total", format=".2f", formatType="number", title="Avg. Grad Rate (%):")]
 ).project(
     type='albersUsa'
 ).add_params(
