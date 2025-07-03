@@ -8,7 +8,7 @@ import altair as alt
 st.set_page_config(
     layout="wide",
     page_title='IPEDS Exploration (MESA8417 Group 2)',
-    page_icon=':graduation_cap:', # This is an emoji shortcode. Could be a URL too.
+    page_icon=':mortar_board:', # This is an emoji shortcode. Could be a URL too.
 )
 
 # -----------------------------------------------------------------------------
