@@ -159,7 +159,7 @@ with col1:
         y=alt.Y("count()", title="Frequency")
     )
 
-    st.altair_chart(hist, use_container_width=True)
+    st.altair_chart(ipeds_refiltered, use_container_width=True)
     
 # 2nd column
 with col2:
