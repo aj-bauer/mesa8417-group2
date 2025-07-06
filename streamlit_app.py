@@ -110,7 +110,7 @@ elif state_metric == "State Overall Graduation Rate":
 ipeds_state_metric = ipeds_filtered.groupby(["state", "id"]).agg({"unitid":"count", "Graduation_rate_Bachelor_6_years_total":"mean"}).reset_index()
 
 # Define a pointer selection
-click_state = alt.selection_point(name="state", fields=["id"])
+click_state = alt.selection_point(name="state", fields=["id", "state"])
 # Define a condition on the opacity encoding depending on the selection
 opacity = alt.when(click_state).then(alt.value(1)).otherwise(alt.value(0.2))
 # Define state data source
@@ -151,7 +151,7 @@ col1, col2 = st.columns(spec=2, gap="medium") # https://docs.streamlit.io/develo
 
 # First column
 with col1:
-    st.header(f"Graduation Rates of {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else ipeds_state_metric.loc[ipeds_state_metric['id']==state_map['selection']['state'][0]['id'], 'state']}")
+    st.header(f"Graduation Rates of {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else "TEST"}")
 
     # Histogram of grad rates
 with col2:
