@@ -189,7 +189,7 @@ with col2:
     )
     scatter_line = scatter + line
     
-    st.altair_chart(scatter_line)
+    st.altair_chart(scatter_line, use_container_width=True)
     
     # Add conditional notation about Pell Grants
     st.markdown(pell_footer)
