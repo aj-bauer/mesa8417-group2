@@ -38,8 +38,7 @@ ipeds_df = get_ipeds_data()
 
 # Set the title and text that appears at the top of the page.
 '''
-# :mortar_board: IPEDS Exploration
-## Graduation Rates & Financial Aid
+# :mortar_board: IPEDS Exploration: Graduation Rates & Financial Aid
 (Intro goes here.)
 '''
 
@@ -164,7 +163,7 @@ with col1:
     
 # 2nd column
 with col2:
-    st.header(f"Grad Rates vs. % of Students Receiving Financial Aid in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
+    st.header(f"Grad Rates vs. Financial Aid in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
     
     # Dropdown filter
     bar_dimension = st.selectbox(label="Select aid type:",
