@@ -151,7 +151,7 @@ col1, col2 = st.columns(spec=2, gap="medium") # https://docs.streamlit.io/develo
 
 # First column
 with col1:
-    st.header(f"Graduation Rates of {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else "TEST"}")
+    st.header(f"Graduation Rates of {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else 'TEST'}")
 
     # Histogram of grad rates
 with col2:
