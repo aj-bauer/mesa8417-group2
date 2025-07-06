@@ -39,7 +39,8 @@ ipeds_df = get_ipeds_data()
 # Set the title and text that appears at the top of the page.
 '''
 # :mortar_board: IPEDS Exploration
-(Subtitle goes here.)
+## Graduation Rates & Financial Aid
+(Intro goes here.)
 '''
 
 # Add some spacing
