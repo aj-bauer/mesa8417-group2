@@ -174,19 +174,19 @@ with col2:
     # Select X-axis metric
     pell_footer = "" # lank unless Pell Grants is selected
     if bar_dimension == "Any Financial Aid":
-        x_metric = ["Percent_financial_aid", "Financial Aid"]
+        x_metric = ["Percent_financial_aid", "Financial Aid (%)"]
     elif bar_dimension == "Pell Grants*":
-        x_metric = ["Percent_Pell_grants", "Pell Grants"]
+        x_metric = ["Percent_Pell_grants", "Pell Grants (%)"]
         pell_footer = "*This is an explanation of what a Pell Grant is."
     elif bar_dimension == "Federal Loans":
-        x_metric = ["Percent_federal_loans","Federal Loans"]
+        x_metric = ["Percent_federal_loans","Federal Loans (%)"]
 
     # Add conditional notation about Pell Grants
     st.markdown(pell_footer)
     
     # Create scatterplot
     scatter = alt.Chart(ipeds_refiltered).mark_circle().encode(
-        x=alt.X(x_metric[0], title=f"% of Students Receiving {x_metric[1]}"),
+        x=alt.X(x_metric[0], title=f"Students Receiving {x_metric[1]}"),
         y=alt.Y("Graduation_rate_Bachelor_6_years_total", title="Graduation Rate (%)"),
         tooltip=[alt.Tooltip(field="institution_name", title="School:"),
                  alt.Tooltip(field="Graduation_rate_Bachelor_6_years_total", title="Grad Rate:"),
