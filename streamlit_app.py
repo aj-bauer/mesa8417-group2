@@ -151,7 +151,7 @@ col1, col2 = st.columns(spec=2, gap="medium") # https://docs.streamlit.io/develo
 
 # First column
 with col1:
-    st.header(f"Graduation Rates of {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else ipeds_state_metric.loc[ipeds_state_metric['id']==state_map['selection']['state'][0]['id'], 'state']}")
+    st.header(f"Graduation Rates of {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else ipeds_state_metric.loc[ipeds_state_metric['id']==state_map['selection']['state'][0]['id'], 'state'][0]}")
 
     # Histogram of grad rates
 with col2:
@@ -189,7 +189,7 @@ with col2:
     )
     scatter_line = scatter + line
     
-    st.altair_chart(scatter_line, use_container_width=True)
+    st.altair_chart(scatter_line, use_container_width=False)
     
     # Add conditional notation about Pell Grants
     st.markdown(pell_footer)
