@@ -87,7 +87,7 @@ ipeds_filtered = ipeds_df if sector == "All schools" else ipeds_df[ipeds_df["Con
 
 
 # ------ MAP SECTION ------ 
-st.header(f"Where are {'Public and Private not-for-profit' if sector=='All schools' else sector} Schools of Higher Ed in the USA?")
+st.header(f"What do Graduation Rates of {'' if sector=='All schools' else sector} Schools of Higher Ed Look Like Across the USA?")
 
 # Include a selector for colormap metric
 state_metric = st.radio(
@@ -151,11 +151,19 @@ col1, col2 = st.columns(spec=2, gap="medium") # https://docs.streamlit.io/develo
 
 # First column
 with col1:
-    st.header(f"Graduation Rates of {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
+    st.header(f"Grad Rates of {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
 
     # Histogram of grad rates
+    hist = alt.Chart(data_new1).mark_bar().encode(
+        x=alt.X("Graduation_rate_Bachelor_6_years_total").bin().title("Graduation Rate (%)"),
+        y=alt.Y("count()", title="Frequency")
+    )
+
+    st.altair_chart(hist, use_container_width=True)
+    
+# 2nd column
 with col2:
-    st.header(f"Graduation Rate vs. Percent of Students Receiving Financial Aid in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
+    st.header(f"Grad Rates vs. % of Students Receiving Financial Aid in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
     
     # Dropdown filter
     bar_dimension = st.selectbox(label="Select aid type:",
@@ -184,12 +192,15 @@ with col2:
                  alt.Tooltip(field="Graduation_rate_Bachelor_6_years_total", title="Grad Rate:"),
                  alt.Tooltip(field=x_metric[0], title=f"{x_metric[1]}:")]
     )
+
+    # Add a regression line
     line = scatter.transform_regression(
         x_metric[0],
         "Graduation_rate_Bachelor_6_years_total"
     ).mark_line(clip=True).encode(
         color=alt.ColorValue("red")
     )
+    
     scatter_line = scatter + line
     
     st.altair_chart(scatter_line, use_container_width=True)
