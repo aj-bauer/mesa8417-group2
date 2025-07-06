@@ -155,12 +155,12 @@ with col1:
     st.header(f"Grad Rates of {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
 
     # Histogram of grad rates
-    hist = alt.Chart(data_new1).mark_bar().encode(
+    hist = alt.Chart(ipeds_refiltered).mark_bar().encode(
         x=alt.X("Graduation_rate_Bachelor_6_years_total").bin().title("Graduation Rate (%)"),
         y=alt.Y("count()", title="Frequency")
     )
 
-    st.altair_chart(ipeds_refiltered, use_container_width=True)
+    st.altair_chart(hist, use_container_width=True)
     
 # 2nd column
 with col2:
