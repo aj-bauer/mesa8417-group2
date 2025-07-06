@@ -155,31 +155,34 @@ with col1:
 
     # Histogram of grad rates
 with col2:
-    st.header(f"Graduation Rate vs. Percent of Students Receiving Financial Aid")
+    st.header(f"Graduation Rate vs. Percent of Students Receiving Financial Aid in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
     
     # Dropdown filter
     bar_dimension = st.selectbox(label="Select aid type:",
                                  options=["Any Financial Aid",  
-                                          "Pell Grants", 
+                                          "Pell Grants*", 
                                           "Federal Loans"])
-
+    
     # Select X-axis metric
     pell_footer = "" # lank unless Pell Grants is selected
     if bar_dimension == "Any Financial Aid":
         x_metric = ["Percent_financial_aid", "Financial Aid"]
-    elif bar_dimension == "Pell Grants":
-        x_metric = ["Percent_Pell_grants", "Pell Grants*"]
+    elif bar_dimension == "Pell Grants*":
+        x_metric = ["Percent_Pell_grants", "Pell Grants"]
         pell_footer = "*This is an explanation of what a Pell Grant is."
     elif bar_dimension == "Federal Loans":
         x_metric = ["Percent_federal_loans","Federal Loans"]
 
+    # Add conditional notation about Pell Grants
+    st.markdown(pell_footer)
+    
     # Create scatterplot
     scatter = alt.Chart(ipeds_refiltered).mark_circle().encode(
         x=alt.X(x_metric[0], title=f"% of Students Receiving {x_metric[1]}"),
         y=alt.Y("Graduation_rate_Bachelor_6_years_total", title="Graduation Rate (%)"),
         tooltip=[alt.Tooltip(field="institution_name", title="School:"),
                  alt.Tooltip(field="Graduation_rate_Bachelor_6_years_total", title="Grad Rate:"),
-                 alt.Tooltip(field=x_metric[0], title=x_metric[1])]
+                 alt.Tooltip(field=x_metric[0], title=f"{x_metric[1]}:")]
     )
     line = scatter.transform_regression(
         x_metric[0],
@@ -189,9 +192,7 @@ with col2:
     )
     scatter_line = scatter + line
     
-    st.altair_chart(scatter_line, use_container_width=False)
+    st.altair_chart(scatter_line, use_container_width=True)
     
-    # Add conditional notation about Pell Grants
-    st.markdown(pell_footer)
         
 # ------ END COLUMNS ------
