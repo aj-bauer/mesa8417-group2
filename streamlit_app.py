@@ -165,7 +165,7 @@ with col2:
 
     # Select X-axis metric
     pell_footer = "" # lank unless Pell Grants is selected
-    if bar_dimension == "Any Aid":
+    if bar_dimension == "Any Financial Aid":
         x_metric = ["Percent_financial_aid", "Financial Aid"]
     elif bar_dimension == "Pell Grants":
         x_metric = ["Percent_Pell_grants", "Pell Grants*"]
