@@ -50,7 +50,7 @@ ipeds_df = get_ipeds_data()
 
 # Set the title and text that appears at the top of the page.
 '''
-# :school: IPEDS Exploration
+# :mortar_board: IPEDS Exploration
 (Subtitle goes here.)
 '''
 
@@ -78,11 +78,6 @@ with st.sidebar: # https://docs.streamlit.io/develop/api-reference/layout/st.sid
         * Zhenyu Fan
         * Margeau Jong
         '''
-    
-    with st.expander('Who are you?'):
-        '''
-        [[UPDATE]] Here we can explain our proposed use case.
-        '''
 
     with st.expander('What is IPEDS?'):
         '''
@@ -109,11 +104,11 @@ st.header(f"Where are {'Public and Private not-for-profit' if sector=='All schoo
 # Include a selector for colormap metric
 state_metric = st.radio(
     label="Select metric for colormap:",
-    options=["Number of Schools per State",
-             "State Overall Graduation Rate"],
+    options=["State Overall Graduation Rate",
+             "Number of Schools per State"],
     horizontal=True,
-    captions=[f"{'Public and Private not-for-profit' if sector=='All schools' else sector} schools",
-              "Average 6-year graduation rate (%)"]
+    captions=["Average 6-year graduation rate (%)",
+             f"{'Public and Private not-for-profit' if sector=='All schools' else sector} schools"]
 )
 # Assign values based on radio choice
 if state_metric == "Number of Schools per State":
@@ -151,7 +146,7 @@ chloropleth = alt.Chart(states).mark_geoshape(tooltip=True).transform_lookup(
 state_map = st.altair_chart(chloropleth, on_select="rerun")
 
 # Debugger
-st.markdown(f"{state_map}")
+# st.markdown(f"{state_map}")
 
 # Filter data again
 ipeds_refiltered = ipeds_filtered if len(state_map["selection"]["state"]) == 0 else ipeds_filtered[ipeds_filtered["id"] == state_map["selection"]["state"][0]["id"]]
@@ -164,71 +159,51 @@ ipeds_refiltered = ipeds_filtered if len(state_map["selection"]["state"]) == 0 e
 
 # ------ COLUMNS ------
 
-col1, col2, col3 = st.columns(spec=3, gap="small") # https://docs.streamlit.io/develop/api-reference/layout/st.columns
+col1, col2 = st.columns(spec=2, gap="medium") # https://docs.streamlit.io/develop/api-reference/layout/st.columns
 
 # First column
 with col1:
-    '''
-    ## Sector Pie Chart?
-    '''
+    st.header(f"Graduation Rates of {'' if sector=='All schools' else sector} Schools in {'the USA' if if len(state_map["selection"]["state"])==0 else ipeds_state_metric.loc[ipeds_state_metric['id']==state_map['selection']['state'][0]['id'], 'state']}")
 
+    # Histogram of grad rates
 with col2:
-    '''
-    ## Grad Rate Histogram
-    '''
-
-with col3:
-    '''
-    ## How many students receive financial aid?
-    '''
-
+    st.header(f"Graduation Rate vs. Percent of Students Receiving Financial Aid")
+    
     # Dropdown filter
-    bar_dimension = st.selectbox(label="Aid type:",
-                                 options=["Any Aid",  
-                                          "Grant Aid", 
-                                          "Student Loans"])
-    
-    # IF "Total Aid", make a pie chart
+    bar_dimension = st.selectbox(label="Select aid type:",
+                                 options=["Any Financial Aid",  
+                                          "Pell Grants", 
+                                          "Federal Loans"])
+
+    # Select X-axis metric
+    pell_footer = "" # lank unless Pell Grants is selected
     if bar_dimension == "Any Aid":
+        x_metric = ["Percent_financial_aid", "Financial Aid"]
+    elif bar_dimension == "Pell Grants":
+        x_metric = ["Percent_Pell_grants", "Pell Grants*"]
+        pell_footer = "*This is an explanation of what a Pell Grant is."
+    elif bar_dimension == "Federal Loans":
+        x_metric = ["Percent_federal_loans","Federal Loans"]
 
-        # Melt the data appropriately 
-        third_pie_long = ipeds_refiltered.melt(id_vars=["unitid"], 
-                                  value_vars=["Percent_financial_aid_p", "Percent_no_aid"],
-                                  var_name="Got_aid", 
-                                  value_name="Percent")
-
-        # Make a pie chart of receiving aid vs. not
-        third_chart = alt.Chart(third_pie_long).mark_arc(innerRadius=10).encode(
-            theta="mean(Percent)",
-            color="Got_aid"
-        )
-
-    # Otherwise, make a bar chart
-    else:
-        if bar_dimension == "Grant Aid":
-            bar_dim = ["Percent_grant_aid_p", "Percent_Pell_grants_p"]
-        elif bar_dimension == "Student Loans":
-            bar_dim = ["Percent_student_loans_p", "Percent_federal_loans_p"]
-
+    # Create scatterplot
+    scatter = alt.Chart(ipeds_refiltered).mark_circle().encode(
+        x=alt.X(x_metric[0], title=f"% of Students Receiving {x_metric[1]}"),
+        y=alt.Y("Graduation_rate_Bachelor_6_years_total", title="Graduation Rate (%)"),
+        tooltip=[alt.Tooltip(field="institution_name", title="School:"),
+                 alt.Tooltip(field="Graduation_rate_Bachelor_6_years_total", title="Grad Rate:"),
+                 alt.Tooltip(field=x_metric[0], title=x_metric[1])]
+    )
+    line = scatter.transform_regression(
+        x_metric[0],
+        "Graduation_rate_Bachelor_6_years_total"
+    ).mark_line(clip=True).encode(
+        color=alt.ColorValue("red")
+    )
+    scatter_line = scatter + line
     
-        # Select and melt data
-        third_bars_long = ipeds_refiltered.melt(id_vars=["unitid"], 
-                                  value_vars=bar_dim,
-                                  var_name="Cost_Type", 
-                                  value_name="Avg_amount")
-
-        # Make a bar chart!
-        third_chart = alt.Chart(third_bars_long).mark_bar().encode(
-            x=alt.X("Cost_Type"),
-            y=alt.Y("mean(Avg_amount)", title="Fraction receiving Aid").scale(domain=(0, 1)),
-            tooltip=alt.Tooltip(aggregate="mean",
-                                field="Avg_amount",
-                                format=".0%",
-                                formatType="number",
-                                title="Receiving Aid:",
-                                )
-        )
+    st.altair_plot(scatter_line)
     
-    st.altair_chart(third_chart)
+    # Add conditional notation about Pell Grants
+    st.markdown(pell_footer)
         
 # ------ END COLUMNS ------
