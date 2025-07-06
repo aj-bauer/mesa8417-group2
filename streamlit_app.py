@@ -38,7 +38,7 @@ ipeds_df = get_ipeds_data()
 
 # Set the title and text that appears at the top of the page.
 '''
-# :mortar_board: IPEDS Exploration: Graduation Rates & Financial Aid
+# :mortar_board: IPEDS Exploration: Graduation Rates & Financial Aid in Schools of Higher Education
 (Intro goes here.)
 '''
 
@@ -87,7 +87,7 @@ ipeds_filtered = ipeds_df if sector == "All schools" else ipeds_df[ipeds_df["Con
 
 
 # ------ MAP SECTION ------ 
-st.header(f"What do Graduation Rates of {'' if sector=='All schools' else sector} Schools of Higher Ed Look Like Across the USA?")
+st.header(f"What do Graduation Rates {'' if sector=='All schools' else f'of {sector} Schools'} Look Like Across the USA?")
 
 # Include a selector for colormap metric
 state_metric = st.radio(
