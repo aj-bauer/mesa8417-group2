@@ -189,7 +189,7 @@ with col2:
         x=alt.X(x_metric[0], title=f"Students Receiving {x_metric[1]}"),
         y=alt.Y("Graduation_rate_Bachelor_6_years_total", title="Graduation Rate (%)"),
         tooltip=[alt.Tooltip(field="institution_name", title="School:"),
-                 alt.Tooltip(field="Graduation_rate_Bachelor_6_years_total", title="Grad Rate:"),
+                 alt.Tooltip(field="Graduation_rate_Bachelor_6_years_total", title="Grad Rate (%):"),
                  alt.Tooltip(field=x_metric[0], title=f"{x_metric[1]}:")]
     )
 
