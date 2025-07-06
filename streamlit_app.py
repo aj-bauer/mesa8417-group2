@@ -26,19 +26,7 @@ def get_ipeds_data():
     DATA_FILENAME = Path(__file__).parent/'data/IPEDS_DATA_CLEAN.csv'
     ipeds_df = pd.read_csv(DATA_FILENAME)
 
-    # Recalc percent columns as percents
-    p_cols = ["Percent_financial_aid",
-              "Percent_Pell_grants",
-              "Percent_grant_aid",
-              "Percent_student_loans",
-              "Percent_federal_loans"]
-    for col in p_cols:
-        ipeds_df[f"{col}_p"] = ipeds_df[col] / 100
-
-    # Calculate percent of students NOT getting finaid
-    ipeds_df["Percent_no_aid"] = 1 - ipeds_df["Percent_financial_aid_p"]
-
-    # Perform any other new column calculations, cleaning, etc. HERE
+    # Perform any new column calculations, cleaning, etc. HERE
 
     return ipeds_df
 
