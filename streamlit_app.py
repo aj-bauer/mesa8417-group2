@@ -163,7 +163,7 @@ with col1:
     
 # 2nd column
 with col2:
-    st.header(f"Grad Rates vs. Financial Aid in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
+    st.header(f"Grad Rates vs. Financial Aid at {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
     
     # Dropdown filter
     bar_dimension = st.selectbox(label="Select aid type:",
