@@ -186,8 +186,8 @@ with col2:
     
     # Create scatterplot
     scatter = alt.Chart(ipeds_refiltered).mark_circle().encode(
-        x=alt.X(x_metric[0], title=f"Students Receiving {x_metric[1]}"),
-        y=alt.Y("Graduation_rate_Bachelor_6_years_total", title="Graduation Rate (%)"),
+        x=alt.X(x_metric[0], title=f"Students Receiving {x_metric[1]}").scale(domain=0, 100),
+        y=alt.Y("Graduation_rate_Bachelor_6_years_total", title="Graduation Rate (%)").scale(domain=0, 100),
         tooltip=[alt.Tooltip(field="institution_name", title="School:"),
                  alt.Tooltip(field="Graduation_rate_Bachelor_6_years_total", title="Grad Rate (%):"),
                  alt.Tooltip(field=x_metric[0], title=f"{x_metric[1]}:")]
