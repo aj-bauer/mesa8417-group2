@@ -63,7 +63,7 @@ with st.sidebar: # https://docs.streamlit.io/develop/api-reference/layout/st.sid
         '''
         We are Group 2 from MESA8417, Summer 2025: 
         * Avi Bauer 
-        * Zhenyu Fan
+        * Zhengyu Fan
         * Margeau Jong
         '''
 
@@ -177,7 +177,7 @@ with col2:
         x_metric = ["Percent_financial_aid", "Financial Aid (%)"]
     elif bar_dimension == "Pell Grants*":
         x_metric = ["Percent_Pell_grants", "Pell Grants (%)"]
-        pell_footer = "*This is an explanation of what a Pell Grant is."
+        pell_footer = "*A Pell Grant is a federal grant awarded to college students meeting the criteria for financial neediness."
     elif bar_dimension == "Federal Loans":
         x_metric = ["Percent_federal_loans","Federal Loans (%)"]
 
