@@ -93,7 +93,7 @@ n_size = ipeds_filtered.shape[0]
 
 # ------ MAP SECTION ------ 
 st.header(f"What do Graduation Rates {'' if sector=='All schools' else f'of {sector} Schools'} Look Like Across the USA?")
-st.subheader(f"N={n_size}")
+st.subheader(f"Number of Schools N={n_size}")
 
 # Include a selector for colormap metric
 state_metric = st.radio(
@@ -154,11 +154,14 @@ ipeds_refiltered = ipeds_filtered if len(state_map["selection"]["state"]) == 0 e
 # ------ COLUMNS ------
 
 col1, col2 = st.columns(spec=2, gap="medium") # https://docs.streamlit.io/develop/api-reference/layout/st.columns
+n_size = ipeds_refiltered.shape[0]
+
 
 # First column
 with col1:
     st.header(f"Grad Rates of {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
-
+    st.subheader(f"Number of Schools N={n_size}")
+    
     # Histogram of grad rates
     hist = alt.Chart(ipeds_refiltered).mark_bar().encode(
         x=alt.X("Graduation_rate_Bachelor_6_years_total").bin().title("Graduation Rate (%)"),
@@ -170,7 +173,7 @@ with col1:
 # 2nd column
 with col2:
     st.header(f"Grad Rates vs. Financial Aid at {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
-    
+    st.subheader(f"Number of Schools N={n_size}")
     # Dropdown filter
     bar_dimension = st.selectbox(label="Select aid type:",
                                  options=["Any Financial Aid",  
