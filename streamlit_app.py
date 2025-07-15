@@ -89,7 +89,7 @@ with st.sidebar: # https://docs.streamlit.io/develop/api-reference/layout/st.sid
 # Filter data
 ipeds_filtered = ipeds_df if sector == "All schools" else ipeds_df[ipeds_df["Control_of_institution"] == sector]
 
-n_size = ipeds_refiltered.shape[0]
+n_size = ipeds_filtered.shape[0]
 
 # ------ MAP SECTION ------ 
 st.header(f"What do Graduation Rates {'' if sector=='All schools' else f'of {sector} Schools'} Look Like Across the USA?")
