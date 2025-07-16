@@ -235,3 +235,13 @@ with col2:
     
         
 # ------ END COLUMNS ------
+
+# EXPERIMENTAL
+
+# Use table to show n_size and avg_outcome
+st.markdown('''
+| Syntax      | Description |
+| :---        |    :----:   |
+| Header      | Title       |
+| Paragraph   | Text        |
+''')
