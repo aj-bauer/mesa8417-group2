@@ -90,10 +90,11 @@ with st.sidebar: # https://docs.streamlit.io/develop/api-reference/layout/st.sid
 ipeds_filtered = ipeds_df if sector == "All schools" else ipeds_df[ipeds_df["Control_of_institution"] == sector]
 
 n_size = ipeds_filtered.shape[0]
+avg_outcome=ipeds_filtered['Graduation_rate_Bachelor_6_years_total'].mean()
 
 # ------ MAP SECTION ------ 
 st.header(f"What do Graduation Rates {'' if sector=='All schools' else f'of {sector} Schools'} Look Like Across the USA?")
-st.subheader(f"Number of {'Schools' if sector=='All schools' else f'{sector} Schools'}:{n_size}")
+st.subheader(f"Number of {'Schools' if sector=='All schools' else f'{sector} Schools'}:{n_size}"  \n "Average Graduation Rate:{avg_outcome}")
 
 # Include a selector for colormap metric
 state_metric = st.radio(
