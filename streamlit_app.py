@@ -92,7 +92,7 @@ ipeds_filtered = ipeds_df if sector == "All schools" else ipeds_df[ipeds_df["Con
 n_size = ipeds_filtered.shape[0]
 
 ipeds_filtered['rate_ft'] = ipeds_filtered['Graduation_rate_Bachelor_6_years_total']/100
-ipeds_filtered['rate_ft'] = ipeds_filtered['rate_ft'].map('{:.2%}'.format)
+
 avg_outcome=ipeds_filtered['rate_ft'].mean()
 
 # ------ MAP SECTION ------ 
