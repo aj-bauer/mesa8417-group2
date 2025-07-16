@@ -95,8 +95,8 @@ ipeds_filtered['rate_ft'] = ipeds_filtered['Graduation_rate_Bachelor_6_years_tot
 avg_outcome=ipeds_filtered['rate_ft'].mean()
 
 # ------ MAP SECTION ------ 
-st.header(f"What do Graduation Rates {'' if sector=='All schools' else f'of {sector} Schools'} Look Like Across the USA?")
-st.markdown(f"### Across :red[{n_size}] {'Schools' if sector=='All schools' else f'{sector} Schools'}, the Average Graduation Rate is :red[{avg_outcome:.2%}]")
+# st.header(f"What do Graduation Rates {'' if sector=='All schools' else f'of {sector} Schools'} Look Like Across the USA?")
+st.markdown(f"## Across :red[{n_size}] {'Schools' if sector=='All schools' else f'{sector} Schools'}, the Average Graduation Rate is :red[{avg_outcome:.2%}]")
 
 # Include a selector for colormap metric
 state_metric = st.radio(
