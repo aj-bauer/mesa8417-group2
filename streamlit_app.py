@@ -178,7 +178,7 @@ avg_outcome=ipeds_refiltered['rate_ft'].mean()
 # First column
 with col1:
     st.header(f"Grad Rates of {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
-    st.subheader(f"Number of {'Schools' if sector=='All schools' else f'{sector} Schools'} in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}: {n_size}  \nAverage Graduation Rate: {avg_outcome:.2%} ")
+    st.markdown(f"**{n_size}** Schools with a **{avg_outcome:.2%}** Avg Graduation Rate:")
     
     # Histogram of grad rates
     hist = alt.Chart(ipeds_refiltered).mark_bar().encode(
@@ -191,7 +191,7 @@ with col1:
 # 2nd column
 with col2:
     st.header(f"Grad Rates vs. Financial Aid at {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
-    st.subheader(f"Number of {'Schools' if sector=='All schools' else f'{sector} Schools'} in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}: {n_size}  \nAverage Graduation Rate: {avg_outcome:.2%} ")
+    st.markdown(f"**{n_size}** Schools with a **{avg_outcome:.2%}** Avg Graduation Rate:")
     
     # Dropdown filter
     bar_dimension = st.selectbox(label="Select aid type:",
@@ -235,8 +235,3 @@ with col2:
     
         
 # ------ END COLUMNS ------
-
-# EXPERIMENTAL
-
-# Use table to show n_size and avg_outcome
-st.markdown(f"| {n_size}      | {avg_outcome:.2%} |\n|    :----:    |    :----:   |\n| Num of {'Schools' if sector=='All schools' else f'{sector} Schools'}     | Avg Graduation Rate       |")
