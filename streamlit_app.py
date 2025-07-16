@@ -100,7 +100,7 @@ st.markdown(f"## Across :red[{n_size}] {'Schools' if sector=='All schools' else 
 
 # Include a selector for colormap metric
 state_metric = st.radio(
-    label="Select metric for colormap:",
+    label="Select the metric for colormap using radio buttons below. Select a state on the map to focus on that state in the lower graphs.",
     options=["State Overall Graduation Rate",
              "Number of Schools per State"],
     horizontal=True,
