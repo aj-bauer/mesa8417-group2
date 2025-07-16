@@ -92,12 +92,11 @@ ipeds_filtered = ipeds_df if sector == "All schools" else ipeds_df[ipeds_df["Con
 n_size = ipeds_filtered.shape[0]
 
 ipeds_filtered['rate_ft'] = ipeds_filtered['Graduation_rate_Bachelor_6_years_total']/100
-
 avg_outcome=ipeds_filtered['rate_ft'].mean()
 
 # ------ MAP SECTION ------ 
 st.header(f"What do Graduation Rates {'' if sector=='All schools' else f'of {sector} Schools'} Look Like Across the USA?")
-st.subheader(f"Number of {'Schools' if sector=='All schools' else f'{sector} Schools'}: {n_size}  \nAverage Graduation Rate: '{avg_outcome:.2%}' ")
+st.subheader(f"Number of {'Schools' if sector=='All schools' else f'{sector} Schools'}: {n_size}  \nAverage Graduation Rate: {avg_outcome:.2%} ")
 
 # Include a selector for colormap metric
 state_metric = st.radio(
@@ -158,13 +157,17 @@ ipeds_refiltered = ipeds_filtered if len(state_map["selection"]["state"]) == 0 e
 # ------ COLUMNS ------
 
 col1, col2 = st.columns(spec=2, gap="medium") # https://docs.streamlit.io/develop/api-reference/layout/st.columns
+
 n_size = ipeds_refiltered.shape[0]
 
+ipeds_refiltered['rate_ft'] = ipeds_refiltered['Graduation_rate_Bachelor_6_years_total']/100
+avg_outcome=ipeds_refiltered['rate_ft'].mean()
 
 # First column
 with col1:
     st.header(f"Grad Rates of {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
     st.subheader(f"Number of Schools N={n_size}")
+    st.subheader(f"Number of {'Schools' if sector=='All schools' else f'{sector} Schools'} in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}: {n_size}  \nAverage Graduation Rate: {avg_outcome:.2%} ")
     
     # Histogram of grad rates
     hist = alt.Chart(ipeds_refiltered).mark_bar().encode(
