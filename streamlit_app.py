@@ -239,9 +239,4 @@ with col2:
 # EXPERIMENTAL
 
 # Use table to show n_size and avg_outcome
-st.markdown('''
-| Syntax      | Description |
-| :---        |    :----:   |
-| Header      | Title       |
-| Paragraph   | Text        |
-''')
+st.markdown(f"| Syntax      | Description |\n| :---        |    :----:   |\n| Header      | Title       |\n| Paragraph   | Text        |")
