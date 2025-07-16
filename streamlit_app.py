@@ -239,4 +239,4 @@ with col2:
 # EXPERIMENTAL
 
 # Use table to show n_size and avg_outcome
-st.markdown(f"| Syntax      | Description |\n| :---        |    :----:   |\n| Header      | Title       |\n| Paragraph   | Text        |")
+st.markdown(f"| {n_size}      | {avg_outcome:.2%} |\n|    :----:    |    :----:   |\n| Num of {'Schools' if sector=='All schools' else f'{sector} Schools'}     | Avg Graduation Rate       |")
