@@ -166,7 +166,6 @@ avg_outcome=ipeds_refiltered['rate_ft'].mean()
 # First column
 with col1:
     st.header(f"Grad Rates of {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
-    st.subheader(f"Number of Schools N={n_size}")
     st.subheader(f"Number of {'Schools' if sector=='All schools' else f'{sector} Schools'} in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}: {n_size}  \nAverage Graduation Rate: {avg_outcome:.2%} ")
     
     # Histogram of grad rates
@@ -180,7 +179,8 @@ with col1:
 # 2nd column
 with col2:
     st.header(f"Grad Rates vs. Financial Aid at {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
-    st.subheader(f"Number of Schools N={n_size}")
+    st.subheader(f"Number of {'Schools' if sector=='All schools' else f'{sector} Schools'} in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}: {n_size}  \nAverage Graduation Rate: {avg_outcome:.2%} ")
+    
     # Dropdown filter
     bar_dimension = st.selectbox(label="Select aid type:",
                                  options=["Any Financial Aid",  
