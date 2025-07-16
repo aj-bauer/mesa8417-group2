@@ -96,7 +96,19 @@ avg_outcome=ipeds_filtered['rate_ft'].mean()
 
 # ------ MAP SECTION ------ 
 st.header(f"What do Graduation Rates {'' if sector=='All schools' else f'of {sector} Schools'} Look Like Across the USA?")
+
 st.subheader(f"Number of {'Schools' if sector=='All schools' else f'{sector} Schools'}: {n_size}  \nAverage Graduation Rate: {avg_outcome:.2%} ")
+
+# Use two columns to show n_size and avg_outcome
+col_a, col_b = st.columns(spec=2, gap="medium")
+
+with col_a:
+    st.subheader({n_size})
+    st.markdown(f"Num of {'Schools' if sector=='All schools' else f'{sector} Schools'}")
+
+with col_b:
+    st.subheader(f"{avg_outcome:.2%}")
+    st.markdown("Avg Graduation Rate")
 
 # Include a selector for colormap metric
 state_metric = st.radio(
