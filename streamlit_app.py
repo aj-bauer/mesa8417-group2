@@ -62,16 +62,8 @@ with st.sidebar: # https://docs.streamlit.io/develop/api-reference/layout/st.sid
 
     # Background information
     st.subheader('Background')
-    
-    with st.expander('Who are we?'): # https://docs.streamlit.io/develop/api-reference/layout/st.expander
-        '''
-        We are Group 2 from MESA8417, Summer 2025: 
-        * Avi Bauer 
-        * Zhengyu Fan
-        * Margeau Jong
-        '''
 
-    with st.expander('What is IPEDS?'):
+    with st.expander('What is IPEDS?'): # https://docs.streamlit.io/develop/api-reference/layout/st.expander
         '''
         The Integrated Postsecondary Education Data System (IPEDS), 
         curated by the National Center for Education Statistics (NCES), 
@@ -81,6 +73,14 @@ with st.sidebar: # https://docs.streamlit.io/develop/api-reference/layout/st.sid
 
         Check out the [NCES website](https://nces.ed.gov/ipeds/) 
         for more information.
+        '''
+    
+    with st.expander('Who are we?'): 
+        '''
+        We are Group 2 from MESA8417, Summer 2025: 
+        * Avi Bauer 
+        * Zhengyu Fan
+        * Margeau Jong
         '''
 
 # ------ END SIDEBAR ------
@@ -96,7 +96,6 @@ avg_outcome=ipeds_filtered['rate_ft'].mean()
 
 # ------ MAP SECTION ------ 
 st.header(f"What do Graduation Rates {'' if sector=='All schools' else f'of {sector} Schools'} Look Like Across the USA?")
-
 st.markdown(f"### Across :red[{n_size}] {'Schools' if sector=='All schools' else f'{sector} Schools'}, the Average Graduation Rate is :red[{avg_outcome:.2%}]")
 
 # Include a selector for colormap metric
@@ -167,7 +166,7 @@ avg_outcome=ipeds_refiltered['rate_ft'].mean()
 # First column
 with col1:
     st.header(f"Grad Rates of {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
-    st.markdown(f"Including **{n_size}** Schools with a **{avg_outcome:.2%}** Avg Graduation Rate")
+    st.markdown(f"Including **:red[{n_size}]** Schools with a **:red[{avg_outcome:.2%}]** Avg Graduation Rate")
     
     # Histogram of grad rates
     hist = alt.Chart(ipeds_refiltered).mark_bar().encode(
@@ -180,7 +179,7 @@ with col1:
 # 2nd column
 with col2:
     st.header(f"Grad Rates vs. Financial Aid at {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
-    st.markdown(f"Including **{n_size}** Schools with a **{avg_outcome:.2%}** Avg Graduation Rate")
+    st.markdown(f"Including **:red[{n_size}]** Schools with a **:red[{avg_outcome:.2%}]** Avg Graduation Rate")
     
     # Dropdown filter
     bar_dimension = st.selectbox(label="Select aid type:",
