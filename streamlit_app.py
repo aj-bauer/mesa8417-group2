@@ -241,7 +241,7 @@ with st.expander("Explore the data"):
     # Allow for searching by name
     name_guess = st.text_input(label="Search for an institution by name:")
 
-    df_display = df_display_all.institution_name.str.contains(name_guess, case=False)
+    df_display = df_display_all[df_display_all.institution_name.str.contains(name_guess, case=False)]
     
     st.dataframe(data=df_display,
                  column_config={
