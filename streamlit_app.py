@@ -173,7 +173,8 @@ with col1:
     # Histogram of grad rates
     hist = alt.Chart(ipeds_refiltered).mark_bar().encode(
         x=alt.X("Graduation_rate_Bachelor_6_years_total").bin().title("Graduation Rate (%)"),
-        y=alt.Y("count()", title="Frequency")
+        y=alt.Y("count()", title="Frequency"),
+        color=alt.Color('#339b52').scale(None)
     )
 
     st.altair_chart(hist, use_container_width=True)
@@ -206,6 +207,7 @@ with col2:
     scatter = alt.Chart(ipeds_refiltered).mark_circle().encode(
         x=alt.X(x_metric[0], title=f"Students Receiving {x_metric[1]}").scale(domain=(0, 100)),
         y=alt.Y("Graduation_rate_Bachelor_6_years_total", title="Graduation Rate (%)").scale(domain=(0, 100)),
+        color=alt.Color('#2878b7').scale(None),
         tooltip=[alt.Tooltip(field="institution_name", title="School:"),
                  alt.Tooltip(field="Graduation_rate_Bachelor_6_years_total", title="Grad Rate (%):"),
                  alt.Tooltip(field=x_metric[0], title=f"{x_metric[1]}:")]
