@@ -167,7 +167,7 @@ avg_outcome=ipeds_refiltered['rate_ft'].mean()
 
 # First column
 with col1:
-    st.header(f"Grad Rates of {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
+    st.header(f"Grad Rate Distribution of {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
     st.markdown(f"Including **:green[{n_size}]** Schools with a **:blue[{avg_outcome:.2%}]** Avg Graduation Rate")
     
     # Histogram of grad rates
