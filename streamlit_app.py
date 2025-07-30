@@ -96,7 +96,7 @@ avg_outcome=ipeds_filtered['rate_ft'].mean()
 
 # ------ MAP SECTION ------ 
 # st.header(f"What do Graduation Rates {'' if sector=='All schools' else f'of {sector} Schools'} Look Like Across the USA?")
-st.markdown(f"## Across :#0e7735[{n_size}] {'Schools' if sector=='All schools' else f'{sector} Schools'} in the USA, the Average Graduation Rate is :red[{avg_outcome:.2%}]")
+st.markdown(f"## Across :green[{n_size}] {'Schools' if sector=='All schools' else f'{sector} Schools'} in the USA, the Average Graduation Rate is :blue[{avg_outcome:.2%}]")
 
 # Include a selector for colormap metric
 state_metric = st.radio(
@@ -168,7 +168,7 @@ avg_outcome=ipeds_refiltered['rate_ft'].mean()
 # First column
 with col1:
     st.header(f"Grad Rates of {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
-    st.markdown(f"Including **:red[{n_size}]** Schools with a **:red[{avg_outcome:.2%}]** Avg Graduation Rate")
+    st.markdown(f"Including **:green[{n_size}]** Schools with a **:blue[{avg_outcome:.2%}]** Avg Graduation Rate")
     
     # Histogram of grad rates
     hist = alt.Chart(ipeds_refiltered).mark_bar().encode(
@@ -181,7 +181,7 @@ with col1:
 # 2nd column
 with col2:
     st.header(f"Grad Rates vs. Financial Aid at {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
-    st.markdown(f"Including **:red[{n_size}]** Schools with a **:red[{avg_outcome:.2%}]** Avg Graduation Rate")
+    st.markdown(f"Including **:green[{n_size}]** Schools with a **:blue[{avg_outcome:.2%}]** Avg Graduation Rate")
     
     # Dropdown filter
     bar_dimension = st.selectbox(label="Select aid type:",
