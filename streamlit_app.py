@@ -122,7 +122,7 @@ ipeds_state_metric = ipeds_filtered.groupby(["state", "id"]).agg({"unitid":"coun
 if "state_id" in st.session_state and st.session_state.state_id != None:
     click_state = alt.selection_point(name="state", fields=["id", "state"], value=st.session_state.state_id)
 else:
-    click_state = alt.selection_point(name="state", fields=["id", "state"])
+    click_state = alt.selection_point(name="state", fields=["id", "state"], value=None)
 # Define a condition on the opacity encoding depending on the selection
 opacity = alt.when(click_state).then(alt.value(1)).otherwise(alt.value(0.2))
 # Define state data source
