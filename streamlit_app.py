@@ -225,15 +225,13 @@ with col2:
 
 # ------ START TABLE ------
 
-df_display = ipeds_df[[
-    "institution_name",
-    "State",
-    "Control_of_institutiuon",
-    "Graduation_rate_Bachelor_6_years_total",
-    "Percent_financial_aid",
-    "Percent_Pell_grants",
-    "Percent_federal_loans"
-]]
+df_display = ipeds_df[["institution_name",
+                       "State",
+                       "Control_of_institutiuon",
+                       "Graduation_rate_Bachelor_6_years_total",
+                       "Percent_financial_aid",
+                       "Percent_Pell_grants",
+                       "Percent_federal_loans"]]
 
 st.dataframe(data=df_display,
              column_config={
