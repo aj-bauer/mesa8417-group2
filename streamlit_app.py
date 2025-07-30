@@ -119,7 +119,7 @@ elif state_metric == "State Overall Graduation Rate":
 ipeds_state_metric = ipeds_filtered.groupby(["state", "id"]).agg({"unitid":"count", "Graduation_rate_Bachelor_6_years_total":"mean"}).reset_index()
 
 # Define a pointer selection, pre-selected if necessary
-if "state_id" in st.session_state:
+if "state_id" in st.session_state and st.session_state.state_id != None:
     click_state = alt.selection_point(name="state", fields=["id", "state"], value=st.session_state.state_id)
 else:
     click_state = alt.selection_point(name="state", fields=["id", "state"])
