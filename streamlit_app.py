@@ -225,23 +225,25 @@ with col2:
 
 # ------ START TABLE ------
 
-df_display = ipeds_df[["institution_name",
-                       "State",
-                       "Control_of_institution",
-                       "Graduation_rate_Bachelor_6_years_total",
-                       "Percent_financial_aid",
-                       "Percent_Pell_grants",
-                       "Percent_federal_loans"]]
-
-st.dataframe(data=df_display,
-             column_config={
-                 "institution_name": "Institution Name",
-                 "Control_of_institution":"Sector",
-                 "Graduation_rate_Bachelor_6_years_total": "6-year Graduation Rate",
-                 "Percent_financial_aid": "% Receiving Any Financial Aid",
-                 "Percent_Pell_grants": "% Receiving Pell Grants",
-                 "Percent_federal_loans": "% Receiving Fedeeral Loans"
-             },
-             hide_index=True,)
+# Define data 
+df_display = ipeds_refiltered[["institution_name",
+                               "State",
+                               "Control_of_institution",
+                               "Graduation_rate_Bachelor_6_years_total",
+                               "Percent_financial_aid",
+                               "Percent_Pell_grants",
+                               "Percent_federal_loans"]]
+# hide in a dropdown
+with st.expander("Explore the data"):
+    st.dataframe(data=df_display,
+                 column_config={
+                     "institution_name": "Institution Name",
+                     "Control_of_institution":"Sector",
+                     "Graduation_rate_Bachelor_6_years_total": "6-year Graduation Rate",
+                     "Percent_financial_aid": "% Receiving Any Financial Aid",
+                     "Percent_Pell_grants": "% Receiving Pell Grants",
+                     "Percent_federal_loans": "% Receiving Fedeeral Loans"
+                 },
+                 hide_index=True,)
 
 # ------ END TABLE ------
