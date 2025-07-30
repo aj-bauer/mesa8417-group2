@@ -227,7 +227,7 @@ with col2:
 
 df_display = ipeds_df[["institution_name",
                        "State",
-                       "Control_of_institutiuon",
+                       "Control_of_institution",
                        "Graduation_rate_Bachelor_6_years_total",
                        "Percent_financial_aid",
                        "Percent_Pell_grants",
