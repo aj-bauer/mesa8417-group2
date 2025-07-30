@@ -220,6 +220,13 @@ with col2:
     scatter_line = scatter + line
     
     st.altair_chart(scatter_line, use_container_width=True)
-    
-        
+            
 # ------ END COLUMNS ------
+
+# ------ START TABLE ------
+
+df_display = ipeds_df
+
+st.dataframe(data=df_display)
+
+# ------ END TABLE ------
