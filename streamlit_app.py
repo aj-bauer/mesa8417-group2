@@ -171,7 +171,7 @@ with col1:
     st.markdown(f"Including **:green[{n_size}]** Schools with a **:blue[{avg_outcome:.2%}]** Avg Graduation Rate")
     
     # Histogram of grad rates
-    hist = alt.Chart(ipeds_refiltered).mark_bar(color='#339b52').encode(
+    hist = alt.Chart(ipeds_refiltered).mark_bar(color='#58b568').encode(
         x=alt.X("Graduation_rate_Bachelor_6_years_total").bin().title("Graduation Rate (%)"),
         y=alt.Y("count()", title="Frequency")
     )
