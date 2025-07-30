@@ -142,11 +142,11 @@ chloropleth = alt.Chart(states).mark_geoshape(tooltip=True).transform_lookup(
 # Run map, return selected state value
 state_map = st.altair_chart(chloropleth, on_select="rerun")
 
-# Debugger
-# st.markdown(f"{state_map}")
+# Assign state ID to session_state
+st.session_state.state_id = state_map["selection"]["state"][0]["id"] if len(state_map["selection"]["state"]) != 0 else None
 
 # Filter data again
-ipeds_refiltered = ipeds_filtered if len(state_map["selection"]["state"]) == 0 else ipeds_filtered[ipeds_filtered["id"] == state_map["selection"]["state"][0]["id"]]
+ipeds_refiltered = ipeds_filtered if len(state_map["selection"]["state"]) == 0 else ipeds_filtered[ipeds_filtered["id"] == st.session_state.state_id]
 
 # ------ END MAP SECTION ------
 
