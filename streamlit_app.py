@@ -228,7 +228,7 @@ with col2:
 # ------ START TABLE ------
 
 # Define data 
-df_display = ipeds_refiltered[["institution_name",
+df_display_all = ipeds_refiltered[["institution_name",
                                "State",
                                "Control_of_institution",
                                "Graduation_rate_Bachelor_6_years_total",
@@ -237,6 +237,13 @@ df_display = ipeds_refiltered[["institution_name",
                                "Percent_federal_loans"]]
 # hide in a dropdown
 with st.expander("Explore the data"):
+
+    # Allow for searching by name
+    name_guess = st.text_input(label="Search for an institution by name:")
+
+    if len(name_guess) > 0:
+        df_display = df_display_all.institution_name.str.contains(name_guess, caase=False)
+    
     st.dataframe(data=df_display,
                  column_config={
                      "institution_name": "Institution Name",
