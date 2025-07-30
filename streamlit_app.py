@@ -111,9 +111,11 @@ state_metric = st.radio(
 if state_metric == "Number of Schools per State":
     state_metric_chosen = "unitid"
     state_metric_name = "Num. of Schools"
+    state_scheme = "greens"
 elif state_metric == "State Overall Graduation Rate":
     state_metric_chosen = "Graduation_rate_Bachelor_6_years_total"
     state_metric_name = "Avg. Grad Rate (%)"
+    state_scheme = "blues"
 
 # Aggregate the schools per state and overall grad rate
 ipeds_state_metric = ipeds_filtered.groupby(["state", "id"]).agg({"unitid":"count", "Graduation_rate_Bachelor_6_years_total":"mean"}).reset_index()
@@ -129,7 +131,7 @@ chloropleth = alt.Chart(states).mark_geoshape(tooltip=True).transform_lookup(
     lookup='id',
     from_=alt.LookupData(ipeds_state_metric, 'id', ["unitid", "Graduation_rate_Bachelor_6_years_total", "state"])
 ).encode(
-    color=alt.Color(f"{state_metric_chosen}:Q", title=state_metric_name),
+    color=alt.Color(f"{state_metric_chosen}:Q", title=state_metric_name).scale(scheme=state_scheme),
     opacity=opacity,
     tooltip=[alt.Tooltip(field="state", title="State:"),
              alt.Tooltip(field="unitid", title="Num. of Schools:"),
