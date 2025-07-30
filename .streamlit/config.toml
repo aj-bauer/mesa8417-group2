@@ -1,2 +1,4 @@
 [theme]
 base = "light"
+secondaryBackgroundColor = "#29924a"
+linkColor = "#29924a"
