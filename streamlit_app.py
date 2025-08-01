@@ -236,13 +236,18 @@ df_display_all = ipeds_refiltered[["institution_name",
                                "Percent_Pell_grants",
                                "Percent_federal_loans"]]
 # hide in a dropdown
-with st.expander("Explore the data"):
+with st.expander("View the data"):
 
     # Allow for searching by name
     name_guess = st.text_input(label="Search for an institution by name:")
 
+    # Filter data based on input
     df_display = df_display_all[df_display_all.institution_name.str.contains(name_guess, case=False)]
+
+    # Add description
+    st.markdown(f"Displaying **:green[{n_size}]** {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
     
+    # Display data table
     st.dataframe(data=df_display,
                  column_config={
                      "institution_name": "Institution Name",
