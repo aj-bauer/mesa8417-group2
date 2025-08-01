@@ -172,7 +172,7 @@ with col1:
     
     # Histogram of grad rates
     hist = alt.Chart(ipeds_refiltered).mark_bar(color='#58b568').encode(
-        x=alt.X("Graduation_rate_Bachelor_6_years_total").bin(maxbins=10).scale(domain=(0, 100)).title("Graduation Rate (%)"),
+        x=alt.X("Graduation_rate_Bachelor_6_years_total").bin().scale(domain=(0, 100)).title("Graduation Rate (%)"),
         y=alt.Y("count()", title="Frequency")
     )
 
