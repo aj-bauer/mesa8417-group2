@@ -43,6 +43,8 @@ High school graduates around the globe make a hefty investment of their time and
 figure has not improved much over the last 20+ years, when the same graduation rate was 58% in 2001. 
 
 Which schools are succeeding when it comes to graduation rates, which ones are failing, and can exploring the data help us figure out why?
+
+Every year, institutions of higher education that participate in Title IV federal funding, must respond to a series of IPEDS surveys administered by the NCES. Data regarding institutional characteristics, enrollment, admissions, demographics, finances, graduation, and more are collected and provided for the public to use.
 '''
 
 # Add some spacing
