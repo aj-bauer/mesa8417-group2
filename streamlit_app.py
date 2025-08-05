@@ -75,7 +75,7 @@ with st.sidebar: # https://docs.streamlit.io/develop/api-reference/layout/st.sid
         for more information.
         '''
 
-     with st.expander('Definitions'): # https://docs.streamlit.io/develop/api-reference/layout/st.expander
+    with st.expander('Definitions'): # https://docs.streamlit.io/develop/api-reference/layout/st.expander
         '''
         Graduation Rate: The 6-year graduation rate among full-time, first-time students seeking a bachelor's or equivalent degree
 
