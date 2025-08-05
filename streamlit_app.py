@@ -79,15 +79,15 @@ with st.sidebar: # https://docs.streamlit.io/develop/api-reference/layout/st.sid
         '''
         **Graduation Rate**: The 6-year graduation rate among full-time, first-time students seeking a bachelor's or equivalent degree
 
-        Public: An educational institution whose programs and activities are operated by publicly elected or appointed school officials and which is supported primarily by public funds.
+        **Public**: An educational institution whose programs and activities are operated by publicly elected or appointed school officials and which is supported primarily by public funds.
 
-        Private: A private (not-for-profit) institution in which the individual(s) or agency in control receives no compensation, other than wages, rent, or other expenses for the assumption of risk. These include both independent not-for-profit schools and those affiliated with a religious organization.
+        **Private**: A private (not-for-profit) institution in which the individual(s) or agency in control receives no compensation, other than wages, rent, or other expenses for the assumption of risk. These include both independent not-for-profit schools and those affiliated with a religious organization.
 
-        Financial Aid: Includes grants, loans, assistantships, scholarships, waivers, discounts, benefits, and other monies provided to students to meet expenses.
+        **Financial Aid**: Includes grants, loans, assistantships, scholarships, waivers, discounts, benefits, and other monies provided to students to meet expenses.
 
-        Pell Grant: A federal grant that provides grant assistance to eligible students with demonstrated financial need to help meet education expenses.
+        **Pell Grant**: A federal grant that provides grant assistance to eligible students with demonstrated financial need to help meet education expenses.
 
-        Federal Loans: Monies borrowed via the federal government that must be repaid for which the student is the designated borrower.
+        **Federal Loans**: Monies borrowed via the federal government that must be repaid for which the student is the designated borrower.
         '''
     
     with st.expander('Who are we?'): 
