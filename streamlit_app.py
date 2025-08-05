@@ -39,11 +39,9 @@ ipeds_df = get_ipeds_data()
 # Set the title and text that appears at the top of the page.
 '''
 # :mortar_board: IPEDS Exploration: Graduation Rates & Financial Aid in Schools of Higher Education
-In the year 2001, data from the National Center for Education Statistics (NCES) shows that the 6-year Bachelor’s graduation rate among degree-seeking undergraduates at 
-public 4-year or private not-for-profit 4-year universities was about 58% (U.S. Department of Education, 2023). Just over half of the students who were investing their 
-time and resources into continued education were not completing their bachelor’s degree within 150% of the expected time frame, unlikely to reap a return on their lost 
-time and money. In 2023, this has increased to about 64%. While this is an improvement, more analysis needs to be done to better understand the schools that better foster 
-student success.
+High school graduates around the globe make a hefty investment each year of their time and resources to pursue a bachelor's degree, but only 64% graduate within 6 years (NCES, 2023). This 
+is a small improvement over the last 20+ years when the same graduation rate was 58% (NCES, 2001). Students who don't complete their bachelor’s degree within 150% of the expected time frame are unlikely to reap any return on their lost 
+time and money. Which schools are succeeding when it comes to graduation rates, which ones are failing, and can exploring the data help us figure out why?
 '''
 
 # Add some spacing
