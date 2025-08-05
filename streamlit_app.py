@@ -186,20 +186,20 @@ with col2:
     # Dropdown filter
     bar_dimension = st.selectbox(label="Select aid type:",
                                  options=["Any Financial Aid",  
-                                          "Pell Grants*", 
+                                          "Pell Grants", 
                                           "Federal Loans"])
     
     # Select X-axis metric
     pell_footer = "" # lank unless Pell Grants is selected
     finaid_footer = ""
     fedloan_footer = ""
-    if bar_dimension == "Any Financial Aid*":
+    if bar_dimension == "Any Financial Aid":
         x_metric = ["Percent_financial_aid", "Financial Aid (%)"]
         finaid_footer = "*Any financial aid includes grants, loans, assistantships, scholarships, waivers, discounts, benefits, and other monies provided to students to meet expenses."
-    elif bar_dimension == "Pell Grants*":
+    elif bar_dimension == "Pell Grants":
         x_metric = ["Percent_Pell_grants", "Pell Grants (%)"]
         pell_footer = "*A Pell Grant is a federal grant that provides grant assistance to eligible students with demonstrated financial need to help meet education expenses."
-    elif bar_dimension == "Federal Loans*":
+    elif bar_dimension == "Federal Loans":
         x_metric = ["Percent_federal_loans","Federal Loans (%)"]
         fedloan_footer = "*Federal loans are monies borrowed via the federal government that must be repaid for which the student is the designated borrower."
         
