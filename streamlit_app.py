@@ -245,7 +245,7 @@ with st.expander("View the data"):
     df_display = df_display_all[df_display_all.institution_name.str.contains(name_guess, case=False)]
 
     # Add description
-    st.markdown(f"Displaying **:green[{n_size}]** {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
+    st.markdown(f"Displaying **:green[{len(df_display)}]** {'' if sector=='All schools' else sector} Schools in {'the USA' if len(state_map['selection']['state'])==0 else state_map['selection']['state'][0]['state']}")
     
     # Display data table
     st.dataframe(data=df_display,
