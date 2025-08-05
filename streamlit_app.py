@@ -77,7 +77,7 @@ with st.sidebar: # https://docs.streamlit.io/develop/api-reference/layout/st.sid
 
     with st.expander('Definitions'): # https://docs.streamlit.io/develop/api-reference/layout/st.expander
         '''
-        Graduation Rate: The 6-year graduation rate among full-time, first-time students seeking a bachelor's or equivalent degree
+        **Graduation Rate**: The 6-year graduation rate among full-time, first-time students seeking a bachelor's or equivalent degree
 
         Public: An educational institution whose programs and activities are operated by publicly elected or appointed school officials and which is supported primarily by public funds.
 
