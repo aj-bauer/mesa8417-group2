@@ -40,7 +40,9 @@ ipeds_df = get_ipeds_data()
 '''
 # :mortar_board: IPEDS Exploration: Graduation Rates & Financial Aid in Schools of Higher Education
 High school graduates around the globe make a hefty investment of their time and resources to pursue a bachelor's degree, but only 64% graduate within 6 years (NCES IPEDS, 2023). This 
-figure has not improved much over the last 20+ years, when the same graduation rate was 58% in 2001. Which schools are succeeding when it comes to graduation rates, which ones are failing, and can exploring the data help us figure out why?
+figure has not improved much over the last 20+ years, when the same graduation rate was 58% in 2001. 
+
+Which schools are succeeding when it comes to graduation rates, which ones are failing, and can exploring the data help us figure out why?
 '''
 
 # Add some spacing
