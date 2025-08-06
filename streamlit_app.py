@@ -222,9 +222,9 @@ with col2:
         fedloan_footer = "*Federal loans are monies borrowed via the federal government that must be repaid for which the student is the designated borrower."
         
     # Add conditional notation about Pell Grants
-    st.markdown(pell_footer)
-    st.markdown(finaid_footer)
-    st.markdown(fedloan_footer)
+    st.markdown(pell_footer + finaid_footer + fedloan_footer)
+    # st.markdown(finaid_footer)
+    # st.markdown(fedloan_footer)
     
     # Create scatterplot
     scatter = alt.Chart(ipeds_refiltered).mark_circle(color='#2878b7').encode(
